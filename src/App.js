@@ -1,9 +1,13 @@
 import './App.css';
 import MainTable from './components/MainTable';
+import TableContextProvider from './context/TableDataContext';
+
 function App() {
   return (
     <div className='App'>
-      <MainTable />
+      <TableContextProvider>
+        <MainTable />
+      </TableContextProvider>
     </div>
   );
 }

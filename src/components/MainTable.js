@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { TableDataContext } from '../context/TableDataContext';
 
 const MainTable = () => {
+  const thData = useContext(TableDataContext);
+
   const [thZero, setThZero] = useState('');
   const handleChange = e => {
     if (e.target.name === 'thZero') {
@@ -12,8 +15,9 @@ const MainTable = () => {
       <table className='ui celled table'>
         <thead>
           <tr>
-            {}
-            <th>Name</th>
+            {thData.headers.map(text => {
+              return <th>{text}</th>;
+            })}
           </tr>
         </thead>
         <tbody>
