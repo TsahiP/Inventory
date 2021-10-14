@@ -1,9 +1,7 @@
 import React, { useState, useContext } from 'react';
-import { TableDataContext } from '../context/TableDataContext';
-
+import ConstantsContext from '../context/ConstantsDataContext';
 const MainTable = () => {
-  const thData = useContext(TableDataContext);
-
+  const { constants } = useContext(ConstantsContext);
   const [thZero, setThZero] = useState('');
   const handleChange = e => {
     if (e.target.name === 'thZero') {
@@ -15,9 +13,11 @@ const MainTable = () => {
       <table className='ui celled table'>
         <thead>
           <tr>
-            {thData.headers.map(text => {
-              return <th>{text}</th>;
-            })}
+            {constants.tableHeader &&
+              constants.tableHeader.map(h => {
+                console.log(h);
+                return <th>{h}</th>;
+              })}
           </tr>
         </thead>
         <tbody>

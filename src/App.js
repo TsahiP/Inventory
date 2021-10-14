@@ -1,15 +1,35 @@
 import './App.css';
 import MainTable from './components/MainTable';
-import TableContextProvider from './context/TableDataContext';
+import React, { useState, useEffect } from 'react';
+import ConstantsContext from './context/ConstantsDataContext';
+const App = () => {
+  const [constants, setConstants] = useState({});
+  useEffect(() => {
+    setConstants({
+      tableHeader: [
+        'מלאי בק"ג',
+        'יחידה',
+        'יחידות במלאי',
+        'קרטון',
+        'קרטונים במלאי',
+        'שליש',
+        'כמות שלישים',
+        'ד. שליש',
+        'כמות ד. שליש',
+        'ק. כדורים',
+        'כמות ק. כדורים',
+        'אמבטיה',
+      ],
+    });
+  }, []);
 
-function App() {
   return (
     <div className='App'>
-      <TableContextProvider>
+      <ConstantsContext.Provider value={{ constants }}>
         <MainTable />
-      </TableContextProvider>
+      </ConstantsContext.Provider>
     </div>
   );
-}
+};
 
 export default App;
