@@ -2,25 +2,13 @@ import './App.css';
 import MainTable from './components/MainTable';
 import React, { useState, useEffect } from 'react';
 import ConstantsContext from './context/ConstantsDataContext';
+
+import LABELS from './constants/labels';
 const App = () => {
-  const [constants, setConstants] = useState({});
+  const [constants, setConstants] = useState();
   useEffect(() => {
-    setConstants({
-      tableHeader: [
-        'מלאי בק"ג',
-        'יחידה',
-        'יחידות במלאי',
-        'קרטון',
-        'קרטונים במלאי',
-        'שליש',
-        'כמות שלישים',
-        'ד. שליש',
-        'כמות ד. שליש',
-        'ק. כדורים',
-        'כמות ק. כדורים',
-        'אמבטיה',
-      ],
-    });
+    console.log(LABELS.TABLE_COLUMNS);
+    setConstants(LABELS.TABLE_COLUMNS);
   }, []);
 
   return (

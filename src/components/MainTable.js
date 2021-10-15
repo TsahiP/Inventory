@@ -1,53 +1,48 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import ConstantsContext from '../context/ConstantsDataContext';
+import productTemplate from '../constants/productTemplate';
+import ProductRowItem from './ProductRowItem';
+import Calculations from '../constants/Calculations';
 const MainTable = () => {
   const { constants } = useContext(ConstantsContext);
-  const [thZero, setThZero] = useState('');
-  const handleChange = e => {
-    if (e.target.name === 'thZero') {
-      setThZero(e.target.value);
-    }
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    setProducts([productTemplate]);
+  }, []);
+
+  const calculateData = () => {
+    Calculations.calculateTotalInStock(
+      productTemplate.inStock,
+      productTemplate.sizes
+    );
+    setProducts([productTemplate]);
   };
+
   return (
     <div>
       <table className='ui celled table'>
         <thead>
           <tr>
-            {constants.tableHeader &&
-              constants.tableHeader.map(h => {
-                console.log(h);
-                return <th>{h}</th>;
+            {constants &&
+              constants.map((column, index) => {
+                return <th key={index.toString()}>{column}</th>;
               })}
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td data-label='Name'>James</td>
-            <td data-label='Age'>24</td>
-            <td data-label='Job'>Engineer</td>
-          </tr>
-          <tr>
-            <td data-label='Name'>
-              <div className='ui input'>
-                <input
-                  name='thZero'
-                  type='text'
-                  onChange={handleChange}
-                  value={thZero}
-                  className='ui input'
-                ></input>
-              </div>
-            </td>
-            <td data-label='Age'>26</td>
-            <td data-label='Job'>Engineer</td>
-          </tr>
-          <tr>
-            <td data-label='Name'>Elyse</td>
-            <td data-label='Age'>24</td>
-            <td data-label='Job'>Designer</td>
-          </tr>
+          {products &&
+            products.map(p => {
+              return <ProductRowItem data={p} />;
+            })}
         </tbody>
       </table>
+      <input
+        type='button'
+        className='ui button'
+        value='calc'
+        onClick={calculateData}
+      />
     </div>
   );
 };
