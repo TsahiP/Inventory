@@ -3,20 +3,33 @@ import ConstantsContext from '../context/ConstantsDataContext';
 import productTemplate from '../constants/productTemplate';
 import ProductRowItem from './ProductRowItem';
 import Calculations from '../constants/Calculations';
+import productService from '../services/productsService';
+
 const MainTable = () => {
   const { constants } = useContext(ConstantsContext);
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    setProducts([productTemplate]);
+    loadProducts();
   }, []);
+
+  const loadProducts = async () => {
+    const response = await productService.handleGetProducts();
+    if (response.isError) {
+    } else {
+      setProducts(response);
+    }
+  };
+  // useEffect(() => {
+  //   setProducts([productTemplate]);
+  // }, []);
 
   const calculateData = () => {
     Calculations.calculateTotalInStock(
       productTemplate.inStock,
       productTemplate.sizes
     );
-    setProducts([productTemplate]);
+    setProducts();
   };
 
   return (
@@ -25,7 +38,7 @@ const MainTable = () => {
         <thead>
           <tr>
             {constants &&
-              constants.map((column, index) => {
+              constants.DAILY_TABLE_COLUMNS.map((column, index) => {
                 return <th key={index.toString()}>{column}</th>;
               })}
           </tr>
@@ -37,12 +50,7 @@ const MainTable = () => {
             })}
         </tbody>
       </table>
-      <input
-        type='button'
-        className='ui button'
-        value='calc'
-        onClick={calculateData}
-      />
+      <input type='button' className='ui button' value='calc' />
     </div>
   );
 };
