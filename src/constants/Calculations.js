@@ -5,7 +5,7 @@ const convertInStockValuesToFloat = object => {
 };
 
 const calculateTotalInStock = (inStockValues, sizes) => {
-  console.log(inStockValues, sizes);
+  // console.log(inStockValues, sizes);
   inStockValues.totalInStock = (
     inStockValues.kg * sizes.kg +
     inStockValues.box * sizes.box +

@@ -8,6 +8,9 @@ import productService from '../services/productsService';
 const MainTable = () => {
   const { constants } = useContext(ConstantsContext);
   const [products, setProducts] = useState([]);
+  const handleClick = () => {
+    console.log(products);
+  };
 
   useEffect(() => {
     loadProducts();
@@ -38,7 +41,7 @@ const MainTable = () => {
         <thead>
           <tr>
             {constants &&
-              constants.DAILY_TABLE_COLUMNS.map((column, index) => {
+              constants.map((column, index) => {
                 return <th key={index.toString()}>{column}</th>;
               })}
           </tr>
@@ -50,7 +53,12 @@ const MainTable = () => {
             })}
         </tbody>
       </table>
-      <input type='button' className='ui button' value='calc' />
+      <input
+        type='button'
+        className='ui button'
+        value='calc'
+        onClick={() => handleClick()}
+      />
     </div>
   );
 };

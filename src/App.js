@@ -13,8 +13,8 @@ const App = () => {
   const loadLabels = async () => {
     const response = await labelsService.handleGetLabels();
     if (response.isError) return alert(response.error);
-    console.log(response);
-    setConstants(response);
+    console.log(response.HEB_LABELS.DAILY_TABLE_COLUMNS);
+    setConstants(response.HEB_LABELS.DAILY_TABLE_COLUMNS);
   };
 
   return (
